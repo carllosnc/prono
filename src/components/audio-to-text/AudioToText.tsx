@@ -31,11 +31,11 @@ export default function AudioToText() {
           className={`relative group p-6 rounded-full transition-all duration-300 border ${
             isListening 
               ? 'bg-white text-black border-white' 
-              : 'bg-zinc-900 text-white border-zinc-800 hover:bg-zinc-800'
+              : 'bg-neutral-900 text-white border-neutral-800 hover:bg-neutral-800'
           }`}
         >
           {isListening && (
-            <span className="absolute -inset-1 rounded-full bg-gray-500 opacity-30 animate-ping"></span>
+            <span className="absolute -inset-1 rounded-full bg-neutral-500 opacity-30 animate-ping"></span>
           )}
           
           <div className="relative z-10 w-8 h-8 flex items-center justify-center">
@@ -47,7 +47,7 @@ export default function AudioToText() {
           </div>
         </button>
         
-        <p className="text-sm font-medium text-gray-400">
+        <p className="text-sm font-medium text-neutral-400">
           {isListening ? 'Listening...' : 'Click to start recording'}
         </p>
 
@@ -63,14 +63,14 @@ export default function AudioToText() {
         <div className="flex justify-end space-x-2">
            <button
             onClick={copyToClipboard}
-            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors border border-zinc-700"
+            className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700 rounded-md transition-colors border border-neutral-700"
           >
             <FiCopy className="w-3 h-3" />
             Copy All
           </button>
           <button
             onClick={clearSentences}
-            className="px-3 py-1.5 text-xs font-medium text-gray-400 hover:text-red-400 bg-zinc-800 hover:bg-zinc-700 rounded-md transition-colors border border-zinc-700"
+            className="px-3 py-1.5 text-xs font-medium text-neutral-400 hover:text-red-400 bg-neutral-800 hover:bg-neutral-700 rounded-md transition-colors border border-neutral-700"
           >
             Clear
           </button>
@@ -79,8 +79,8 @@ export default function AudioToText() {
 
       <div className="space-y-4">
         {interimTranscript && (
-          <div className="p-4 bg-zinc-800/30 rounded-lg border border-zinc-800 border-dashed animate-pulse">
-            <p className="text-gray-400 italic">
+          <div className="p-4 bg-neutral-800/30 rounded-lg border border-neutral-800 border-dashed animate-pulse">
+            <p className="text-neutral-400 italic">
               {interimTranscript} ...
             </p>
           </div>
@@ -89,16 +89,16 @@ export default function AudioToText() {
         {sentences.map((sentence, index) => (
           <div 
             key={index} 
-            className="p-4 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-zinc-700 transition-colors"
+            className="p-4 bg-neutral-900 rounded-lg border border-neutral-800 hover:border-neutral-700 transition-colors"
           >
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-neutral-300 text-lg leading-relaxed">
               {sentence}
             </p>
           </div>
         ))}
         
         {sentences.length === 0 && !interimTranscript && (
-           <p className="text-gray-600 italic text-center mt-12">
+           <p className="text-neutral-600 italic text-center mt-12">
              No sentences yet. Start speaking to add to the list.
            </p>
         )}
