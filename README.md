@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Prono
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Prono** is a modern React application built for fast, client-side audio-to-text transcription. It leverages the browser's native Web Speech API to provide real-time speech recognition without external service dependencies.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project uses a modern, high-performance stack:
 
-## React Compiler
+-   **Runtime & Package Manager**: [Bun](https://bun.sh) (Strictly Enforced)
+-   **Framework**: [React 19](https://react.dev)
+-   **Build Tool**: [Vite](https://vitejs.dev)
+-   **Language**: [TypeScript](https://www.typescriptlang.org)
+-   **Styling**: [Tailwind CSS v4](https://tailwindcss.com) (using CSS variables via `@theme`)
+-   **Typography**: [Inter](https://fonts.google.com/specimen/Inter)
+-   **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Requirements
 
-## Expanding the ESLint configuration
+-   **Bun**: You must have Bun installed to run this project. **Do not use Node.js, npm, or yarn.**
+    -   [Install Bun](https://bun.sh/docs/installation)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  **Clone the repository**:
+    ```bash
+    git clone <repository-url>
+    cd prono
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2.  **Install dependencies**:
+    ```bash
+    bun install
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3.  **Run the development server**:
+    ```bash
+    bun run dev
+    ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4.  **Build for production**:
+    ```bash
+    bun run build
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Version Control & Rules
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+-   **Runtime**: Always use `bun` for scripts and package management.
+-   **Styling**: Use Tailwind CSS utility classes. For custom theme values, defined them in the `@theme` block in `src/index.css`.
+-   **AI Assistance**: Refer to the `ai-requirements/` folder for specific rules and context when working with AI coding assistants.
+
+## Features
+
+-   **Real-time Transcription**: Converts speech to text instantly using the Web Speech API.
+-   **Privacy Focused**: Runs entirely in the browser; no audio data is sent to third-party servers (dependent on browser implementation).
+-   **Modern UI**: Clean, responsive interface built with Tailwind CSS v4.
