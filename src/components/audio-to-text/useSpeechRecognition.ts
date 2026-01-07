@@ -56,6 +56,7 @@ export const useSpeechRecognition = () => {
   const [interimTranscript, setInterimTranscript] = useState('');
   const [error, setError] = useState<string | null>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const isListeningRef = useRef(false);
 
   useEffect(() => {
     // Check browser support
@@ -92,18 +93,42 @@ export const useSpeechRecognition = () => {
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       console.error('Speech recognition error', event.error);
-      setError(`Error: ${event.error}`);
+      
+      // 'no-speech' is common and usually followed by onend, we want to allow restart
+      if (event.error === 'no-speech') return;
+      
+      // For other errors (network, not-allowed, etc.), stop trying to restart
+      isListeningRef.current = false;
       setIsListening(false);
+      
+      if (event.error === 'not-allowed') {
+        setError('Microphone access denied.');
+      } else {
+        setError(`Error: ${event.error}`);
+      }
     };
 
     recognition.onend = () => {
-      setIsListening(false);
-      setInterimTranscript('');
+      // If we are supposed to be listening, restart the recognition
+      // This is a workaround for mobile browsers that stop recognition after a few seconds
+      if (isListeningRef.current) {
+        try {
+          recognition.start();
+        } catch (err) {
+          console.error('Error restarting speech recognition:', err);
+          setIsListening(false);
+          isListeningRef.current = false;
+        }
+      } else {
+        setIsListening(false);
+        setInterimTranscript('');
+      }
     };
 
     recognitionRef.current = recognition;
 
     return () => {
+      isListeningRef.current = false;
       if (recognitionRef.current) {
         recognitionRef.current.abort();
       }
@@ -112,12 +137,21 @@ export const useSpeechRecognition = () => {
 
   const toggleListening = useCallback(() => {
     if (isListening) {
+      isListeningRef.current = false;
       recognitionRef.current?.stop();
       setIsListening(false);
     } else {
       setError(null);
-      recognitionRef.current?.start();
-      setIsListening(true);
+      isListeningRef.current = true;
+      try {
+        recognitionRef.current?.start();
+        setIsListening(true);
+      } catch (err) {
+        console.error('Error starting speech recognition:', err);
+        setError('Could not start microphone');
+        isListeningRef.current = false;
+        setIsListening(false);
+      }
     }
   }, [isListening]);
 

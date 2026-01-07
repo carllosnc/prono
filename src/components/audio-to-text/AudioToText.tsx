@@ -24,7 +24,7 @@ export default function AudioToText() {
   }
 
   return (
-    <div className="w-full py-[20px] flex flex-col gap-[20px]">
+    <div className="w-full  py-[20px] flex flex-col gap-[20px]">
       <div className="flex flex-col items-center justify-center space-y-4">
         <button
           onClick={toggleListening}
