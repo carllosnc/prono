@@ -30,7 +30,7 @@ export default function AudioToText() {
           onClick={toggleListening}
           className={`relative group p-6 rounded-full transition-all duration-300 border ${
             isListening
-              ? 'bg-yellow-400 text-black border-yellow'
+              ? 'bg-yellow-300 text-black border-yellow'
               : 'bg-neutral-700 text-white border-neutral-700 hover:bg-neutral-700'
           }`}
         >
