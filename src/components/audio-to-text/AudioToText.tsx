@@ -77,7 +77,7 @@ export default function AudioToText() {
         </div>
       )}
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {interimTranscript && (
           <div className="p-4 bg-neutral-800/30 rounded-lg border border-neutral-800 border-dashed animate-pulse">
             <p className="text-neutral-400 italic">
@@ -89,7 +89,7 @@ export default function AudioToText() {
         {sentences.map((sentence, index) => (
           <div
             key={index}
-            className="p-[12px] bg-neutral-900 rounded-lg border border-neutral-900 hover:border-neutral-800 transition-colors"
+            className="py-[10px] px-[20px] bg-neutral-900 rounded-lg border border-neutral-900 hover:border-neutral-800 transition-colors"
           >
             <p className="text-neutral-300 leading-relaxed">
               {sentence}
